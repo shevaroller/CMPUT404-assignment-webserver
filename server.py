@@ -43,26 +43,38 @@ class MyWebServer(SocketServer.BaseRequestHandler):
              self.getUrl(url)
         else:
              print "Error\nGET is expected instead of " + request[0]
+             self.getUrl("404")
 
     def getUrl(self, url):
         print "Get this url: " + url
 
         # construct path to requested file
         path = "www"
-        if url == "/":
-            path += "/index.html"
-        else:
-            path += url
+        path += url
+        if url[-1] == "/":
+            path += "index.html"
 
         print "Serve " + path
         try:
             f = open(path, 'r')
             data = f.read()
             print data
-            self.request.sendall(data)
+            # consulted with http://www.tutorialspoint.com/http/http_responses.htm
+            header = "HTTP/1.1 200 OK\n"
+            mime = path.split(".")[-1]
         except:
-            print "Error"
+            print "404 error"
+            header = "HTTP/1.1 404 Not Found\n"
+            data = "<h1>404 Not Found</h1>"
+            mime = "html"
+        header += "Content-Length: " + str(len(data)) + "\n"
+        header += "Content-Type: text/" + mime + "\n"
+        header += "Connection: Closed\r\n\r\n"
+        self.sendResponse(header, data)
 
+
+    def sendResponse(self, header, data):
+            self.request.sendall(header + "\n" + data)
 
 
 
