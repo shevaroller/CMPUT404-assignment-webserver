@@ -34,6 +34,25 @@ class MyWebServer(SocketServer.BaseRequestHandler):
         print ("Got a request of: %s\n" % self.data)
         self.request.sendall("OK")
 
+        header = self.data.split("\n")
+        #for line in header:
+        #    print line + "\n\n"
+        request = header[0].split(" ")
+        if request[0] == "GET":
+             url = request[1]
+             self.getUrl(url)
+        else:
+             print "Error\nGET is expected instead of " + request[0]
+
+    def getUrl(self, url):
+        print "Get this url: " + url
+        if url == "/":
+            print "Serve /index.html"
+        else:
+            print "Serve " + url
+
+
+
 if __name__ == "__main__":
     HOST, PORT = "localhost", 8080
 
