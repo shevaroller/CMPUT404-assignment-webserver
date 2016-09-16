@@ -32,7 +32,7 @@ class MyWebServer(SocketServer.BaseRequestHandler):
     def handle(self):
         self.data = self.request.recv(1024).strip()
         print ("Got a request of: %s\n" % self.data)
-        self.request.sendall("OK")
+        #self.request.sendall("OK")
 
         header = self.data.split("\n")
         #for line in header:
@@ -46,10 +46,23 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 
     def getUrl(self, url):
         print "Get this url: " + url
+
+        # construct path to requested file
+        path = "www"
         if url == "/":
-            print "Serve /index.html"
+            path += "/index.html"
         else:
-            print "Serve " + url
+            path += url
+
+        print "Serve " + path
+        try:
+            f = open(path, 'r')
+            data = f.read()
+            print data
+            self.request.sendall(data)
+        except:
+            print "Error"
+
 
 
 
