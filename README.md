@@ -3,9 +3,9 @@ CMPUT404-assignment-webserver
 
 CMPUT404-assignment-webserver
 
-See requirements.org (plain-text) for a description of the project.
+Partially HTTP 1.1 compliant webserver. Webserver serves static content from the www directory in the same directory that the webserver is started in.
 
-Make a simple webserver.
+See requirements.org (plain-text) for a description of the project.
 
 Contributors / Licensing
 ========================
@@ -16,6 +16,7 @@ server.py contains contributions from:
 
 * Abram Hindle
 * Eddie Antonio Santos
+* Oleksii Shevchenko
 
 But the server.py example is derived from the python documentation
 examples thus some of the code is Copyright © 2001-2013 Python
