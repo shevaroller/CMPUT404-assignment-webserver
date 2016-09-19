@@ -16,7 +16,7 @@ server.py contains contributions from:
 
 * Abram Hindle
 * Eddie Antonio Santos
-* Oleksii Shevchenko (shevaroller.me) in collaboration with @lindaZ1
+* Oleksii Shevchenko (shevaroller.me) in collaboration with [@lindaZ1](https://github.com/lindaZ1/CMPUT404-assignment-webserver)
 
 But the server.py example is derived from the python documentation
 examples thus some of the code is Copyright © 2001-2013 Python
