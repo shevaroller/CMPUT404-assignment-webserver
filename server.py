@@ -54,14 +54,18 @@ class MyWebServer(SocketServer.BaseRequestHandler):
             if url[-1] == "/":
                 path += "index.html"
             else:
-                path += "/index.html"
+                print "Respond with 302 Moved Temporarily\n\n"
+                header = "HTTP/1.1 302 Moved Temporarily\n"
+                header += "Location: " + url + "/\n"
+                header += "Connection: Closed\r\n\r\n"
+                data = ''
+                self.sendResponse(header, data)
 
         print "Trying to serve " + path
         try:
             f = open(path, 'r')
             absolutePath = os.path.abspath(f.name)
             # security check
-            print "file path = " + absolutePath
             baseDirectory = os.path.dirname(os.path.abspath(__file__))
             servePath = baseDirectory + "/www/"
             if not absolutePath.startswith(servePath):
@@ -83,7 +87,7 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 
 
     def sendResponse(self, header, data):
-            self.request.sendall(header + "\n" + data)
+            self.request.sendall(header + data)
 
 
 if __name__ == "__main__":
